@@ -1,6 +1,19 @@
 # Docker Basic Command
 
-Selamat datang di lab Docker Basic Command!
+## Tujuan
 
-Jika kamu bisa melihat halaman ini dan mendapatkan terminal Ubuntu,
-berarti scenario Killercoda berhasil dijalankan.
+Pada lab ini, kita akan mempraktikkan command dasar Docker menggunakan image **Nginx**.
+
+Command yang akan dipelajari meliputi:
+
+- Mengunduh Docker image
+- Membuat dan menjalankan container
+- Melihat container
+- Menjalankan command di dalam container
+- Melihat logs
+- Mengelola container
+- Mengelola Docker image
+
+Pastikan terminal Docker tersedia sebelum memulai lab.
+
+Klik **Start** untuk memulai praktik.

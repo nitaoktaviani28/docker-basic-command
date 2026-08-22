@@ -3,7 +3,13 @@
   "details": {
     "intro": {
       "text": "intro.md"
-    }
+    },
+    "steps": [
+      {
+        "title": "Docker Basic Command",
+        "text": "step1/text.md"
+      }
+    ]
   },
   "backend": {
     "imageid": "ubuntu"
