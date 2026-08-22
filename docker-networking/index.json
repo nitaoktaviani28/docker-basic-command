@@ -1,0 +1,33 @@
+{
+  "title": "Docker Networking",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Step 1 - Bridge Network",
+        "text": "step1/text.md"
+      },
+      {
+        "title": "Step 2 - Host Network",
+        "text": "step2/text.md"
+      },
+      {
+        "title": "Step 3 - None Network",
+        "text": "step3/text.md"
+      },
+      {
+        "title": "Step 4 - Perbandingan Mode",
+        "text": "step4/text.md"
+      },
+      {
+        "title": "Step 5 - Cleanup dan Ringkasan",
+        "text": "step5/text.md"
+      }
+    ]
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
