@@ -14,6 +14,4 @@ Command yang akan dipelajari meliputi:
 - Mengelola container
 - Mengelola Docker image
 
-Pastikan terminal Docker tersedia sebelum memulai lab.
-
 Klik **Start** untuk memulai praktik.

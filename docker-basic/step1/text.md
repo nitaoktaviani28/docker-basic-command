@@ -219,25 +219,13 @@ Cleanup:
 docker rm nginx-foreground
 ```
 
-## 8. Membandingkan Foreground dan Background
+Atau hapus paksa tanpa stop terlebih dahulu:
 
-Foreground:
 ```bash
-docker run --name nginx-foreground nginx
+docker rm -f nginx-foreground
 ```
-- Terminal terikat dengan proses container.
-- Prompt tidak langsung kembali.
-- Hentikan dengan `Ctrl + C`.
 
-Background:
-```bash
-docker run -d --name nginx-background nginx
-```
-- Container berjalan di background.
-- Prompt terminal langsung kembali.
-- Container tetap berjalan.
-
-## 9. Menjalankan Nginx di Background dengan Nama
+## 8. Menjalankan Nginx di Background dengan Nama
 
 ### Command
 ```bash
@@ -259,7 +247,7 @@ docker ps
 
 Pastikan `nginx-basic` berstatus `Up`.
 
-## 10. Menjalankan Command di Dalam Container
+## 9. Menjalankan Command di Dalam Container
 
 ### Command
 ```bash
@@ -274,7 +262,7 @@ Keterangan:
 - `nginx-basic`: nama container target.
 - `nginx -v`: menampilkan versi Nginx.
 
-## 11. Masuk ke Interactive Terminal Container
+## 10. Masuk ke Interactive Terminal Container
 
 ### Command
 ```bash
@@ -295,7 +283,7 @@ Keluar dari container:
 exit
 ```
 
-## 12. Melihat Container yang Berjalan
+## 11. Melihat Container yang Berjalan
 
 ### Command
 ```bash
@@ -306,7 +294,7 @@ docker ps
 Menampilkan container yang sedang berjalan.
 Pastikan `nginx-basic` masih berstatus `Up`.
 
-## 13. Melihat Semua Container
+## 12. Melihat Semua Container
 
 ### Command
 ```bash
@@ -320,7 +308,7 @@ Perbedaan:
 - `docker ps`: hanya container yang berjalan.
 - `docker ps -a`: semua container.
 
-## 14. Melihat Logs Container
+## 13. Melihat Logs Container
 
 ### Command
 ```bash
@@ -335,7 +323,7 @@ Melihat log dari container untuk monitoring dan troubleshooting.
 docker logs -n 100 nginx-basic
 ```
 
-## 15. Menghentikan Container
+## 14. Menghentikan Container
 
 ### Command
 ```bash
@@ -353,7 +341,7 @@ docker ps -a
 
 Pastikan status `nginx-basic` adalah `Exited`.
 
-## 16. Menjalankan Kembali Container
+## 15. Menjalankan Kembali Container
 
 ### Command
 ```bash
@@ -373,7 +361,7 @@ docker ps
 
 Pastikan status kembali `Up`.
 
-## 17. Restart Container
+## 16. Restart Container
 
 ### Command
 ```bash
@@ -390,7 +378,7 @@ docker ps
 
 Pastikan container kembali berstatus `Up`.
 
-## 18. Menjalankan Command Saat Membuat Container
+## 17. Menjalankan Command Saat Membuat Container
 
 ### Command
 ```bash
@@ -406,7 +394,7 @@ Pada contoh di atas:
 
 Setelah command selesai, container bisa berhenti karena proses utamanya selesai.
 
-## 19. Menghapus Container
+## 18. Menghapus Container
 
 ### Command
 ```bash
@@ -427,7 +415,7 @@ docker ps -a
 
 Pastikan `nginx-basic` sudah tidak muncul.
 
-## 20. Melihat Docker Image
+## 19. Melihat Docker Image
 
 ### Command
 ```bash
@@ -440,7 +428,7 @@ Menampilkan image yang tersimpan di local Docker environment.
 Walaupun container sudah dihapus, image Nginx masih tersedia.
 Ini menunjukkan bahwa image dan container adalah entitas yang berbeda.
 
-## 21. Menghapus Docker Image
+## 20. Menghapus Docker Image
 
 ### Command
 ```bash
