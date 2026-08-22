@@ -6,8 +6,24 @@
     },
     "steps": [
       {
-        "title": "Docker Basic Command",
+        "title": "Step 1 - Image Dasar",
         "text": "step1/text.md"
+      },
+      {
+        "title": "Step 2 - Nama dan Mode Container",
+        "text": "step2/text.md"
+      },
+      {
+        "title": "Step 3 - Interaksi Container",
+        "text": "step3/text.md"
+      },
+      {
+        "title": "Step 4 - Lifecycle Container",
+        "text": "step4/text.md"
+      },
+      {
+        "title": "Step 5 - Cleanup Image",
+        "text": "step5/text.md"
       }
     ]
   },
