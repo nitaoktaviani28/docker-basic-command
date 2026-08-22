@@ -6,34 +6,30 @@ Pada lab ini, kita akan mempraktikkan command dasar Docker menggunakan image **N
 
 ## Alur Lab (Step by Step)
 
-### Step 1 - Persiapan
-- Mulai lab dan pastikan siap menjalankan command Docker.
-
-### Step 2 - Image Dasar
+### Step 1 - Image Dasar
 - Pull image Nginx (`latest`).
 - Pull image Nginx dengan tag (`alpine`).
-
-### Step 3 - Container Dasar
 - Menjalankan container tanpa nama.
-- Menjalankan container dengan nama (`nginx-basic`).
 
-### Step 4 - Mode Menjalankan Container
+### Step 2 - Nama dan Mode Container
+- Menjalankan container dengan nama (`nginx-basic`).
 - Menjalankan container di background (`-d`).
 - Menjalankan container di foreground (tanpa `-d`).
 
-### Step 5 - Operasional Container
+### Step 3 - Interaksi Container
 - Melihat daftar container (`docker ps`, `docker ps -a`).
 - Menjalankan command di dalam container (`docker exec`).
 - Masuk ke terminal interaktif container (`docker exec -it`).
 - Melihat log container (`docker logs`).
 
-### Step 6 - Lifecycle Container
+### Step 4 - Lifecycle Container
 - Stop container (`docker stop`).
 - Start container (`docker start`).
 - Restart container (`docker restart`).
-- Hapus container (`docker rm` / `docker rm -f`).
+- Menjalankan command saat membuat container.
+- Hapus container (`docker rm`).
 
-### Step 7 - Cleanup Image
+### Step 5 - Cleanup Image
 - Melihat daftar image (`docker images`).
 - Menghapus image (`docker rmi`).
 
