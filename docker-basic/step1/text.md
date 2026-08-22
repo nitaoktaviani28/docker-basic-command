@@ -106,10 +106,26 @@ docker run nginx nginx -v
 ### Tujuan
 Menjalankan command langsung saat container dibuat.
 
-Struktur umum:
+Perbedaan menjalankan container dengan `-d` dan tanpa `-d`:
+- Dengan `-d` (detached mode), container berjalan di background dan terminal langsung bisa dipakai lagi.
+- Tanpa `-d`, container berjalan di foreground sehingga output langsung tampil di terminal. Terminal akan tetap terikat ke proses container sampai proses selesai atau dihentikan.
+
+Contoh:
 
 ```bash
-docker run <image> <command>
+docker run -d nginx
+docker run nginx
+```
+
+Perbedaan menjalankan container dengan nama dan tanpa nama:
+- Dengan `--name`, kita menentukan nama container secara manual, misalnya `nginx-basic`, sehingga lebih mudah untuk command lanjutan seperti `docker logs nginx-basic` atau `docker stop nginx-basic`.
+- Tanpa `--name`, Docker akan membuat nama container otomatis (random), misalnya `focused_turing` atau `eager_morse`.
+
+Contoh:
+
+```bash
+docker run --name nginx-basic -d nginx
+docker run -d nginx
 ```
 
 ## 8. Melihat Logs Container
