@@ -2,6 +2,18 @@
 
 Sebelum selesai, kita verifikasi image lokal dan image dari Docker Hub.
 
+Pastikan variabel username sudah ada (jika terminal baru):
+
+```bash
+export DOCKERHUB_USER="USERNAME_KAMU"
+```
+
+Jika container lama masih ada, hapus dulu agar tidak bentrok nama:
+
+```bash
+docker rm -f hello-nginx hello-nginx-hub 2>/dev/null || true
+```
+
 ## A. Uji image lokal
 
 ```bash
@@ -28,22 +40,22 @@ Hello from Docker Hub!
 
 ## B. Pull lalu jalankan dari Docker Hub
 
-Hapus tag image Docker Hub (opsional, untuk simulasi pull ulang):
+Hapus image lama dulu agar pull benar-benar mengambil versi terbaru (opsional):
 
 ```bash
-docker rmi USERNAME/hello-nginx:v1
+docker rmi $DOCKERHUB_USER/hello-nginx:v1 hello-nginx:v1 2>/dev/null || true
 ```
 
 Pull dari Docker Hub:
 
 ```bash
-docker pull USERNAME/hello-nginx:v1
+docker pull $DOCKERHUB_USER/hello-nginx:v1
 ```
 
 Run image hasil pull:
 
 ```bash
-docker run -d --name hello-nginx-hub -p 8081:80 USERNAME/hello-nginx:v1
+docker run -d --name hello-nginx-hub -p 8081:80 $DOCKERHUB_USER/hello-nginx:v1
 ```
 
 Uji aplikasi:
@@ -58,4 +70,4 @@ Jika berhasil, output tetap:
 Hello from Docker Hub!
 ```
 
-Ganti `USERNAME` dengan username Docker Hub milikmu.
+Jika sebelumnya kamu sudah pull image seperti `haechanlovelove/hello-nginx:v1`, maka command run juga harus pakai nama yang sama persis.
