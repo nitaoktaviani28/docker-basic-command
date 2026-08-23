@@ -1,0 +1,49 @@
+{
+  "title": "Build & Push Docker Image",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Step 1 - Membuat Dockerfile",
+        "text": "step1/text.md"
+      },
+      {
+        "title": "Step 2 - Build Docker Image",
+        "text": "step2/text.md"
+      },
+      {
+        "title": "Step 3 - Melihat Image",
+        "text": "step3/text.md"
+      },
+      {
+        "title": "Step 4 - Menjalankan Image",
+        "text": "step4/text.md"
+      },
+      {
+        "title": "Step 5 - Login ke Docker Hub",
+        "text": "step5/text.md"
+      },
+      {
+        "title": "Step 6 - Tag untuk Docker Hub",
+        "text": "step6/text.md"
+      },
+      {
+        "title": "Step 7 - Push Image ke Docker Hub",
+        "text": "step7/text.md"
+      },
+      {
+        "title": "Step 8 - Pull Image dari Docker Hub",
+        "text": "step8/text.md"
+      },
+      {
+        "title": "Step 9 - Menjalankan Image dari Docker Hub",
+        "text": "step9/text.md"
+      }
+    ]
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
