@@ -20,11 +20,11 @@ Manual run multi-container
           ->
 Tulis docker-compose.yml
           ->
-docker compose up -d
+docker-compose up -d
           ->
 Cek status dan log
           ->
-docker compose down
+docker-compose down
 ```
 
 Lanjutkan dari Step 1 sampai Step 4.

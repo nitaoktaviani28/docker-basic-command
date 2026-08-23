@@ -5,7 +5,7 @@ Sekarang seluruh stack bisa dijalankan dengan command singkat.
 ## 1. Jalankan semua service
 
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 
 `-d` artinya berjalan di background.
@@ -13,13 +13,13 @@ docker compose up -d
 ## 2. Cek status service
 
 ```bash
-docker compose ps
+docker-compose ps
 ```
 
 ## 3. Lihat log jika ada masalah
 
 ```bash
-docker compose logs -f db
+docker-compose logs -f db
 ```
 
 Tekan `Ctrl+C` untuk keluar dari mode follow log.
@@ -32,4 +32,4 @@ curl -I localhost:8080
 
 Atau buka port `8080` dari menu Traffic/Ports di environment lab.
 
-Catatan: jika environment kamu masih memakai command lama, `docker-compose` bisa dipakai sebagai alternatif dari `docker compose`.
+Catatan: di lab ini kita konsisten memakai format command `docker-compose`.
