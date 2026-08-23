@@ -8,12 +8,6 @@ Pastikan variabel username sudah ada (jika terminal baru):
 export DOCKERHUB_USER="USERNAME_KAMU"
 ```
 
-Jika container lama masih ada, hapus dulu agar tidak bentrok nama:
-
-```bash
-docker rm -f hello-nginx hello-nginx-hub 2>/dev/null || true
-```
-
 ## A. Uji image lokal
 
 ```bash
