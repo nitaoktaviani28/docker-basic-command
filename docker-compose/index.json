@@ -1,0 +1,29 @@
+{
+  "title": "Docker Compose",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Step 1 - Simulasi Manual Multi-Container",
+        "text": "step1/text.md"
+      },
+      {
+        "title": "Step 2 - Menulis docker-compose.yml",
+        "text": "step2/text.md"
+      },
+      {
+        "title": "Step 3 - Orkestrasi dengan Docker Compose",
+        "text": "step3/text.md"
+      },
+      {
+        "title": "Step 4 - Shutdown dan Ringkasan",
+        "text": "step4/text.md"
+      }
+    ]
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
