@@ -1,19 +1,21 @@
-# Step 3 - Melihat Image
+# Step 3 - Login, Tag, dan Push ke Docker Hub
 
-Periksa image yang sudah dibuat:
+1. Login ke Docker Hub:
 
 ```bash
-docker images
+docker login
 ```
 
-Pastikan terdapat:
+2. Tag image lokal agar sesuai format repository Docker Hub:
 
-```text
-hello-nginx
+```bash
+docker tag hello-nginx:v1 USERNAME/hello-nginx:v1
 ```
 
-dengan tag:
+3. Push image ke Docker Hub:
 
-```text
-v1
+```bash
+docker push USERNAME/hello-nginx:v1
 ```
+
+Ganti `USERNAME` dengan username Docker Hub milikmu.
