@@ -1,0 +1,33 @@
+{
+  "title": "Lab Membuat Dockerfile",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Step 1 - Menjalankan Aplikasi Tanpa Docker",
+        "text": "step1/text.md"
+      },
+      {
+        "title": "Step 2 - Membuat dan Memahami Dockerfile",
+        "text": "step2/text.md"
+      },
+      {
+        "title": "Step 3 - Build Docker Image",
+        "text": "step3/text.md"
+      },
+      {
+        "title": "Step 4 - Menjalankan dan Verifikasi Container",
+        "text": "step4/text.md"
+      },
+      {
+        "title": "Step 5 - Melihat Log dan Ringkasan",
+        "text": "step5/text.md"
+      }
+    ]
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
