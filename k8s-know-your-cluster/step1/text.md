@@ -1,31 +1,29 @@
 # Step 1 - Cek Jumlah Node Kubernetes
 
-Pada langkah ini, kamu akan mengecek jumlah node pada cluster Kubernetes.
+Pada langkah ini, kamu diminta untuk mengecek jumlah node yang ada pada Kubernetes cluster.
 
-Di skenario ini, targetnya adalah:
-
-- 1 node control-plane (master)
-- 1 node worker
-
-## 1. Cek daftar node Kubernetes
+Jalankan command berikut:
 
 ```bash
 kubectl get nodes
 ```
 
-Perhatikan kolom `ROLES` lalu pastikan ada:
+Perhatikan jumlah node yang muncul pada output command tersebut.
 
-- satu node dengan role `control-plane`
-- satu node worker (biasanya tampil sebagai `<none>` di kolom `ROLES`)
+Contoh output:
 
-Jumlah total node berarti `2`.
+```text
+NAME           STATUS   ROLES           AGE   VERSION
+controlplane   Ready    control-plane   10m   v1.30.0
+node01         Ready    <none>          10m   v1.30.0
+```
 
-Simpan jawaban ke file:
+Dari output tersebut, terlihat bahwa jumlah node adalah `2`.
+
+Jalankan command berikut untuk menyimpan jawaban kamu. Angka `2` di bawah hanya contoh dan harus disesuaikan dengan jumlah node pada lab kamu:
 
 ```bash
 echo "2" > /tmp/answer-node-count
 ```
 
-Lalu klik Check.
-
-Jika sementara baru terlihat 1 node, tunggu 20-60 detik lalu jalankan ulang `kubectl get nodes` sampai node worker muncul.
+Setelah itu klik **Check**.

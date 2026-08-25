@@ -1,23 +1,42 @@
-# Step 2 - Cek OS dan Versi Kubernetes
+# Step 2 - Cek Operating System dan Versi Kubernetes
 
-Di langkah ini, kamu akan mengambil detail node untuk mengetahui OS dan versi Kubernetes.
+Pada langkah ini, kamu diminta untuk mengecek informasi berikut:
 
-Jalankan:
+1. Operating System yang digunakan oleh node Kubernetes.
+2. Versi Kubernetes yang digunakan oleh node.
+
+Jalankan command berikut:
 
 ```bash
 kubectl get nodes -o wide
 ```
 
-Ambil dua informasi berikut dari output:
+Output command tersebut akan menampilkan informasi tambahan, termasuk:
 
-- OS image dari kolom OS-IMAGE.
-- Versi Kubernetes dari kolom VERSION.
+- `OS-IMAGE`
+- `KERNEL-VERSION`
+- `CONTAINER-RUNTIME`
 
-Simpan jawaban ke file:
+Untuk melihat versi Kubernetes, perhatikan juga kolom `VERSION`.
+
+Contoh output:
+
+```text
+NAME           STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE            KERNEL-VERSION   CONTAINER-RUNTIME
+controlplane   Ready    control-plane   10m   v1.30.0   172.30.1.2    <none>        Ubuntu 22.04.4 LTS  5.15.0-105       containerd://1.7
+node01         Ready    <none>          10m   v1.30.0   172.30.1.3    <none>        Ubuntu 22.04.4 LTS  5.15.0-105       containerd://1.7
+```
+
+Dari contoh di atas:
+
+- Operating System: `Ubuntu 22.04.4 LTS`
+- Versi Kubernetes: `v1.30.0`
+
+Sekarang simpan jawaban kamu ke file berikut:
 
 ```bash
 echo "Ubuntu 22.04.4 LTS" > /tmp/answer-os
 echo "v1.30.0" > /tmp/answer-k8s-version
 ```
 
-Nilai di atas hanya contoh. Wajib ganti sesuai output lab kamu.
+Ganti value di atas sesuai dengan hasil yang muncul pada environment kamu.

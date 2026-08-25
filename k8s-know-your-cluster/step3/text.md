@@ -1,39 +1,58 @@
-# Step 3 - Cek Control Plane dan Hostname
+# Step 3 - Cek Jumlah Master dan Hostname Master
 
-Di langkah ini, kamu akan menentukan:
+Pada langkah ini, kamu diminta untuk mengecek:
 
-1. Jumlah node control-plane.
-2. Hostname node control-plane.
+1. Berapa jumlah node master atau control-plane pada cluster.
+2. Apa hostname dari node master atau control-plane tersebut.
 
-## 1. Cek role node
+Di Kubernetes versi baru, node master biasanya menggunakan label:
+
+```text
+node-role.kubernetes.io/control-plane
+```
+
+Sedangkan pada beberapa cluster lama, label yang digunakan adalah:
+
+```text
+node-role.kubernetes.io/master
+```
+
+Jalankan command berikut untuk melihat node yang berperan sebagai master atau control-plane:
 
 ```bash
 kubectl get nodes
 ```
 
-Perhatikan kolom ROLES. Node dengan role control-plane adalah node master.
+Perhatikan kolom `ROLES`.
 
-## 2. Alternatif filter dengan label
+Contoh output:
+
+```text
+NAME           STATUS   ROLES           AGE   VERSION
+controlplane   Ready    control-plane   20m   v1.30.0
+node01         Ready    <none>          20m   v1.30.0
+```
+
+Dari contoh di atas:
+
+- Jumlah master atau control-plane: `1`
+- Hostname master atau control-plane: `controlplane`
+
+Kamu juga dapat menggunakan command berikut untuk menampilkan hostname master atau control-plane berdasarkan label:
 
 ```bash
 kubectl get nodes -l node-role.kubernetes.io/control-plane
 ```
 
-Pada cluster lama, label bisa memakai master:
-
-```bash
-kubectl get nodes -l node-role.kubernetes.io/master
-```
-
-## 3. Simpan jawaban
-
-Contoh jika control-plane hanya satu dan hostnamenya controlplane:
+Sekarang simpan jawaban kamu ke file berikut:
 
 ```bash
 echo "1" > /tmp/answer-master-count
 echo "controlplane" > /tmp/answer-master-hostname
 ```
 
-Jika control-plane lebih dari satu, tulis hostname dalam satu baris dipisahkan koma tanpa spasi.
+Ganti value di atas sesuai dengan hasil pada cluster kamu.
 
-Lab selesai. Kamu sudah mengenali data dasar cluster Kubernetes yang penting untuk operasi Kubernetes.
+Jika terdapat lebih dari satu master, tulis hostname master dalam satu baris, dipisahkan dengan koma tanpa spasi.
+
+Lab selesai. Kamu sudah mempraktikkan cara mengenali informasi dasar cluster Kubernetes yang penting untuk administrasi dan troubleshooting.
