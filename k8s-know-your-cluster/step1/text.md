@@ -1,31 +1,29 @@
-# Step 1 - Cek Jumlah Node Minikube
+# Step 1 - Cek Jumlah Node Kubernetes
 
-Pada langkah ini, kamu akan memastikan cluster Minikube aktif lalu mengecek jumlah node.
+Pada langkah ini, kamu akan mengecek jumlah node pada cluster Kubernetes.
 
-## 1. Cek status Minikube
+Di skenario ini, targetnya adalah:
 
-```bash
-minikube status
-```
+- 1 node control-plane (master)
+- 1 node worker
 
-Jika belum running, nyalakan dengan:
-
-```bash
-minikube start
-```
-
-## 2. Cek daftar node Kubernetes
+## 1. Cek daftar node Kubernetes
 
 ```bash
 kubectl get nodes
 ```
 
-Hitung jumlah node pada output.
+Perhatikan kolom `ROLES` lalu pastikan ada:
 
-Contoh jika ada 2 node, simpan jawaban seperti ini:
+- satu node dengan role `control-plane`
+- satu node worker
+
+Jumlah total node berarti `2`.
+
+Simpan jawaban ke file:
 
 ```bash
 echo "2" > /tmp/answer-node-count
 ```
 
-Ganti angka sesuai hasil di environment kamu, lalu klik Check.
+Lalu klik Check.

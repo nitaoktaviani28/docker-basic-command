@@ -2,7 +2,12 @@
 
 Selamat datang di lab Know Your Cluster.
 
-Di lab ini, kamu akan mengenali informasi dasar cluster Kubernetes yang berjalan di environment Minikube pada Killercoda.
+Di lab ini, kamu akan mengenali informasi dasar cluster Kubernetes pada environment Killercoda.
+
+Topologi cluster pada skenario ini:
+
+- 1 node control-plane (master)
+- 1 node worker
 
 Informasi yang akan dicek:
 
@@ -15,7 +20,7 @@ Kenapa penting? Karena data ini dipakai untuk validasi environment, troubleshoot
 
 ## Alur Lab
 
-- Step 1: cek jumlah node Minikube.
+- Step 1: cek jumlah node Kubernetes.
 - Step 2: cek OS image dan versi Kubernetes.
 - Step 3: cek jumlah control-plane dan hostname.
 

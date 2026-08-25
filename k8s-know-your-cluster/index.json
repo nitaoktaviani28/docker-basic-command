@@ -6,7 +6,7 @@
     },
     "steps": [
       {
-        "title": "Step 1 - Cek Jumlah Node Minikube",
+        "title": "Step 1 - Cek Jumlah Node Kubernetes",
         "text": "step1/text.md"
       },
       {

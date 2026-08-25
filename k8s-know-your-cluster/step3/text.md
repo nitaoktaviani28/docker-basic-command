@@ -36,4 +36,4 @@ echo "controlplane" > /tmp/answer-master-hostname
 
 Jika control-plane lebih dari satu, tulis hostname dalam satu baris dipisahkan koma tanpa spasi.
 
-Lab selesai. Kamu sudah mengenali data dasar cluster Minikube yang penting untuk operasi Kubernetes.
+Lab selesai. Kamu sudah mengenali data dasar cluster Kubernetes yang penting untuk operasi Kubernetes.
