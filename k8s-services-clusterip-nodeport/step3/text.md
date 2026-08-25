@@ -59,11 +59,58 @@ Cek Pod:
 kubectl get pods -l app=wordpress-client
 ```
 
-Jika ingin memastikan env database sudah benar, kamu bisa melihat detail Pod:
+Sekarang mari cek apakah WordPress benar-benar menggunakan Service `ClusterIP` milik MySQL.
+
+## 1. Lihat ClusterIP dari MySQL Service
+
+```bash
+kubectl get svc mysql-service
+```
+
+Contoh output:
+
+```text
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+mysql-service   ClusterIP   10.96.120.55    <none>        3306/TCP   1m
+```
+
+Di sini terlihat bahwa `mysql-service` memiliki alamat `ClusterIP` internal. Pod WordPress tidak perlu menghafal IP ini secara manual, karena cukup memakai nama Service `mysql-service`.
+
+## 2. Pastikan env database pada WordPress sudah benar
+
+Kamu bisa melihat detail Deployment:
 
 ```bash
 kubectl describe deployment wordpress-client
 ```
+
+Perhatikan environment variable berikut:
+
+```text
+WORDPRESS_DB_HOST=mysql-service:3306
+```
+
+## 3. Uji koneksi dari dalam Pod WordPress ke Service MySQL
+
+Ambil nama Pod WordPress:
+
+```bash
+kubectl get pods -l app=wordpress-client
+```
+
+Lalu jalankan pengecekan koneksi TCP ke MySQL dari dalam Pod WordPress:
+
+```bash
+kubectl exec deploy/wordpress-client -- php -r '$fp=@fsockopen("mysql-service",3306,$errno,$errstr,5); if($fp){echo "connected to mysql-service:3306\n"; fclose($fp);} else {echo "failed: $errno $errstr\n"; exit(1);}'
+```
+
+Jika berhasil, akan muncul output seperti:
+
+```text
+connected to mysql-service:3306
+```
+
+Ini adalah bukti bahwa WordPress dapat menjangkau MySQL melalui Service `ClusterIP`.
 
 Pastikan WordPress berhasil berjalan dalam status `Running`.
 
