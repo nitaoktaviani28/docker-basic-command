@@ -16,7 +16,7 @@ kubectl get nodes
 Perhatikan kolom `ROLES` lalu pastikan ada:
 
 - satu node dengan role `control-plane`
-- satu node worker
+- satu node worker (biasanya tampil sebagai `<none>` di kolom `ROLES`)
 
 Jumlah total node berarti `2`.
 
@@ -27,3 +27,5 @@ echo "2" > /tmp/answer-node-count
 ```
 
 Lalu klik Check.
+
+Jika sementara baru terlihat 1 node, tunggu 20-60 detik lalu jalankan ulang `kubectl get nodes` sampai node worker muncul.
