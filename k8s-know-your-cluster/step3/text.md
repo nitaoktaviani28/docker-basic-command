@@ -1,17 +1,17 @@
 # Step 3 - Cek Jumlah Master dan Hostname Master
 
-Pada langkah ini, kamu diminta untuk mengecek:
+Pada langkah terakhir ini, kamu akan mengidentifikasi:
 
 1. Berapa jumlah node master atau control-plane pada cluster.
 2. Apa hostname dari node master atau control-plane tersebut.
 
-Di Kubernetes versi baru, node master biasanya menggunakan label:
+Pada Kubernetes versi yang lebih baru, node master umumnya menggunakan label:
 
 ```text
 node-role.kubernetes.io/control-plane
 ```
 
-Sedangkan pada beberapa cluster lama, label yang digunakan adalah:
+Sedangkan pada beberapa cluster yang lebih lama, label yang digunakan bisa berupa:
 
 ```text
 node-role.kubernetes.io/master
@@ -33,12 +33,12 @@ controlplane   Ready    control-plane   20m   v1.30.0
 node01         Ready    <none>          20m   v1.30.0
 ```
 
-Dari contoh di atas:
+Dari contoh di atas, maka:
 
 - Jumlah master atau control-plane: `1`
 - Hostname master atau control-plane: `controlplane`
 
-Kamu juga dapat menggunakan command berikut untuk menampilkan hostname master atau control-plane berdasarkan label:
+Kamu juga bisa menggunakan command berikut untuk menampilkan node control-plane berdasarkan label:
 
 ```bash
 kubectl get nodes -l node-role.kubernetes.io/control-plane
@@ -54,5 +54,3 @@ echo "controlplane" > /tmp/answer-master-hostname
 Ganti value di atas sesuai dengan hasil pada cluster kamu.
 
 Jika terdapat lebih dari satu master, tulis hostname master dalam satu baris, dipisahkan dengan koma tanpa spasi.
-
-Lab selesai. Kamu sudah mempraktikkan cara mengenali informasi dasar cluster Kubernetes yang penting untuk administrasi dan troubleshooting.
