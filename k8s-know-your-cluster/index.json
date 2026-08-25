@@ -1,0 +1,25 @@
+{
+  "title": "K8s - Know Your Cluster",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Step 1 - Cek Jumlah Node Minikube",
+        "text": "step1/text.md"
+      },
+      {
+        "title": "Step 2 - Cek OS dan Versi Kubernetes",
+        "text": "step2/text.md"
+      },
+      {
+        "title": "Step 3 - Cek Control Plane dan Hostname",
+        "text": "step3/text.md"
+      }
+    ]
+  },
+  "backend": {
+    "imageid": "kubernetes"
+  }
+}
