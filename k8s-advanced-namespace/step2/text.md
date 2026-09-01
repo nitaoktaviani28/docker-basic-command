@@ -1,27 +1,30 @@
 # Nama Resource dalam Namespace yang Sama
 
-Nama resource Kubernetes harus unik di dalam Namespace yang sama. Pada tahap ini, kamu akan membuat Deployment `nginx-app` di Namespace `default`, lalu mencoba membuatnya sekali lagi dengan nama yang sama.
+Nama resource Kubernetes harus unik di dalam Namespace yang sama. Pada tahap ini, kamu akan membuat Deployment `nginx-app` di Namespace `dev`, lalu mencoba membuatnya sekali lagi dengan nama yang sama.
 
 Buat manifest Deployment pertama:
 
 ```bash
-cat <<EOF > manifests/nginx-app-default.yaml
+cat <<EOF > manifests/nginx-app-dev.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-app
-  namespace: default
+  namespace: dev
   labels:
     app: nginx-app
+    environment: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: nginx-app
+      environment: dev
   template:
     metadata:
       labels:
         app: nginx-app
+        environment: dev
     spec:
       containers:
         - name: nginx
@@ -34,22 +37,22 @@ EOF
 Terapkan manifest dan cek statusnya:
 
 ```bash
-kubectl apply -f manifests/nginx-app-default.yaml
-kubectl get deployment nginx-app -n default
+kubectl apply -f manifests/nginx-app-dev.yaml
+kubectl get deployment nginx-app -n dev
 ```
 
 Tunggu sampai kolom `AVAILABLE` bernilai `1`.
 
-Sekarang coba buat Deployment kedua dengan nama yang sama pada Namespace `default`:
+Sekarang coba buat Deployment kedua dengan nama yang sama pada Namespace `dev`:
 
 ```bash
-kubectl create deployment nginx-app --image=nginx:1.26 -n default
+kubectl create deployment nginx-app --image=nginx:1.26 -n dev
 ```
 
 Command tersebut akan gagal dengan error `AlreadyExists`. Simpan error tersebut sebagai jawaban verifikasi:
 
 ```bash
-kubectl create deployment nginx-app --image=nginx:1.26 -n default 2> /tmp/answer-same-namespace-error || true
+kubectl create deployment nginx-app --image=nginx:1.26 -n dev 2> /tmp/answer-same-namespace-error || true
 cat /tmp/answer-same-namespace-error
 ```
 

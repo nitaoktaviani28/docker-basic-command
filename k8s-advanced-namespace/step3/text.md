@@ -1,30 +1,27 @@
 # Nama Sama di Namespace Berbeda
 
-Namespace memiliki ruang nama masing-masing. Karena itu, Deployment bernama `nginx-app` yang sudah ada di `default` boleh dibuat lagi di Namespace `dev` dan `prod`.
+Namespace memiliki ruang nama masing-masing. Deployment `nginx-app` sudah ada di `dev` dari tahap sebelumnya. Sekarang kamu akan memakai nama yang sama di Namespace `default` dan `prod`.
 
-Buat manifest untuk environment development:
+Buat manifest untuk Namespace `default`:
 
 ```bash
-cat <<EOF > manifests/nginx-app-dev.yaml
+cat <<EOF > manifests/nginx-app-default.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-app
-  namespace: dev
+  namespace: default
   labels:
     app: nginx-app
-    environment: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: nginx-app
-      environment: dev
   template:
     metadata:
       labels:
         app: nginx-app
-        environment: dev
     spec:
       containers:
         - name: nginx
@@ -34,10 +31,10 @@ spec:
 EOF
 ```
 
-Terapkan manifest development:
+Terapkan manifest tersebut:
 
 ```bash
-kubectl apply -f manifests/nginx-app-dev.yaml
+kubectl apply -f manifests/nginx-app-default.yaml
 ```
 
 Kemudian buat manifest untuk environment production:
