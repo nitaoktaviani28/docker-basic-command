@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: (ganti sesuai format yang diminta)
+spec:
+  ingressClassName: traefik # Tidak boleh diganti
+  rules:
+  - host: (ganti disini).apps.k3s.zauqilab.com # ganti sesuai format anda
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: (ganti sesuai format yang diminta)
+            port:
+              number: 80
