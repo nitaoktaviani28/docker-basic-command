@@ -49,7 +49,7 @@ Sekarang coba buat Deployment kedua dengan nama yang sama pada Namespace `dev`:
 kubectl create deployment nginx-app --image=nginx:1.26 -n dev
 ```
 
-Command tersebut akan gagal dengan error `AlreadyExists`. Simpan error tersebut sebagai jawaban verifikasi:
+Command tersebut akan gagal karena Deployment dengan nama itu sudah ada. Format pesan dapat berbeda antar versi Kubernetes, misalnya `AlreadyExists` atau `already exists`. Simpan error tersebut sebagai jawaban verifikasi:
 
 ```bash
 kubectl create deployment nginx-app --image=nginx:1.26 -n dev 2> /tmp/answer-same-namespace-error || true

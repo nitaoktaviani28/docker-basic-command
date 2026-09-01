@@ -19,8 +19,8 @@ if [ "${ready:-0}" -lt 1 ]; then
   exit 1
 fi
 
-if [ ! -f /tmp/answer-same-namespace-error ] || ! grep -q "AlreadyExists" /tmp/answer-same-namespace-error; then
-  echo "Bukti error AlreadyExists belum tersimpan di /tmp/answer-same-namespace-error."
+if [ ! -f /tmp/answer-same-namespace-error ] || ! grep -Eqi "AlreadyExists|already exists" /tmp/answer-same-namespace-error; then
+  echo "Bukti error resource yang sudah ada belum tersimpan di /tmp/answer-same-namespace-error."
   exit 1
 fi
 
