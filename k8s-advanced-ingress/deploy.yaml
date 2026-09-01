@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: (ganti sesuai format yang diminta)
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: (ganti sesuai format yang diminta)
+  template:
+    metadata:
+      labels:
+        app: (ganti sesuai format yang diminta)
+    spec:
+      containers:
+      - name: (ganti sesuai format yang diminta)
+        image: hashicorp/http-echo
+        args: ["-text=Halo dari Echo Server (nama panggilan)!"]
+        ports:
+        - containerPort: 5678
