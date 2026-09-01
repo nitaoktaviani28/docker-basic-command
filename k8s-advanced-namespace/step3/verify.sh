@@ -26,8 +26,7 @@ check_deployment() {
   fi
 }
 
-check_deployment default nginx:1.25
 check_deployment dev nginx:1.25
 check_deployment prod nginx:1.26
 
-echo "Step 3 benar: nginx-app berhasil dipisahkan di default, dev, dan prod."
+echo "Step 3 benar: nginx-app berhasil dibuat di Namespace dev dan prod."
