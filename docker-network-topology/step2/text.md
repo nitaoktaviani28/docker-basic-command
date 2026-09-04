@@ -78,3 +78,15 @@ host-wordpress -> 127.0.0.1:3306 -> host-mysql
 ```
 
 Klik **Check** setelah WordPress dapat diakses melalui IP host dan koneksi database menampilkan `connected`.
+
+## Kapan Host Digunakan?
+
+Gunakan network `host` ketika aplikasi memang perlu memakai network host secara langsung atau ketika port mapping Docker tidak diperlukan.
+
+Contoh use case:
+
+1. Monitoring atau network agent yang perlu membaca dan melayani port host secara langsung.
+2. Aplikasi dengan kebutuhan performa network khusus yang ingin mengurangi lapisan NAT atau port mapping.
+3. Pengujian service yang memang harus tersedia pada port standar host, misalnya HTTP di port `80`.
+
+Mode ini memiliki risiko konflik port. Jika host sudah memakai port `80` atau `3306`, container tidak dapat menggunakan port yang sama. Karena isolasi network lebih rendah, `host` bukan pilihan default untuk aplikasi umum.

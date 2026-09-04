@@ -81,3 +81,15 @@ bridge-wordpress -> wordpress-bridge -> bridge-mysql:3306
 ```
 
 Klik **Check** setelah koneksi database menampilkan `connected` dan halaman WordPress dapat diakses.
+
+## Kapan Bridge Digunakan?
+
+Gunakan network `bridge` untuk sebagian besar aplikasi container pada satu host, terutama ketika aplikasi perlu dipisahkan dari network host tetapi masih harus berkomunikasi dengan container lain.
+
+Contoh use case:
+
+1. Aplikasi web seperti WordPress terhubung ke database MySQL atau PostgreSQL.
+2. Frontend, backend API, cache, dan database dalam satu environment development.
+3. Aplikasi yang hanya mengekspos port tertentu ke host, misalnya WordPress pada `8080` tanpa membuka port database ke luar.
+
+User-defined bridge seperti `wordpress-bridge` lebih disarankan daripada default bridge karena menyediakan DNS internal berdasarkan nama container.
