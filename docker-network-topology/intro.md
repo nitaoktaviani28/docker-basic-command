@@ -4,9 +4,9 @@ Selamat datang di lab Docker Networking.
 
 Docker menyediakan beberapa mode jaringan. Tiga mode yang paling penting untuk dipahami adalah:
 
-1. **Bridge**: container memiliki network namespace sendiri. Akses dari host memerlukan port mapping, sedangkan container dalam user-defined bridge dapat berkomunikasi melalui nama container.
-2. **Host**: container menggunakan network stack milik host. Container tidak memerlukan port mapping dan aplikasi diakses melalui IP atau port host.
-3. **None**: container tidak mendapat interface jaringan selain loopback. Container tidak dapat mengakses host, container lain, ataupun internet.
+1. **Bridge**: WordPress dan MySQL memiliki IP sendiri, berada pada user-defined bridge yang sama, dan dapat saling berkomunikasi melalui nama container. WordPress diekspos keluar memakai port mapping.
+2. **Host**: WordPress dan MySQL langsung menggunakan network stack host. WordPress diakses melalui IP host tanpa port mapping.
+3. **None**: WordPress dan MySQL tidak memiliki interface jaringan selain loopback, sehingga WordPress tidak dapat terhubung ke MySQL.
 
 Lab ini menggunakan Docker Engine di Linux. Perilaku `--network host` pada Docker Desktop dapat berbeda karena Docker berjalan di dalam VM.
 

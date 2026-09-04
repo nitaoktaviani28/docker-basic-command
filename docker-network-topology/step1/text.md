@@ -1,70 +1,83 @@
-# Bridge Network dan Port Mapping
+# Bridge: WordPress dan MySQL
 
-`bridge` adalah mode jaringan Docker yang umum digunakan. Container mendapat IP sendiri di jaringan Docker dan dipisahkan dari network host. Agar aplikasi di dalam container dapat diakses dari host, kita membuat **port mapping**.
-
-Pada lab ini kita menggunakan user-defined bridge bernama `webinar-bridge`. Keuntungannya adalah Docker menyediakan DNS internal, sehingga container dapat saling menemukan lewat nama container.
+Pada mode `bridge`, setiap container memiliki network namespace dan IP internal sendiri. Kita akan menempatkan WordPress dan MySQL pada user-defined bridge yang sama agar keduanya dapat berkomunikasi melalui nama container.
 
 Buat network bridge:
 
 ```bash
-docker network create --driver bridge webinar-bridge
+docker network create --driver bridge wordpress-bridge
 ```
 
-Lihat daftar network Docker untuk memastikan network berhasil dibuat:
-
-```bash
-docker network ls
-```
-
-Jalankan web server Nginx pada bridge dan map port host `8080` ke port container `80`:
+Jalankan MySQL. Container ini tidak membutuhkan port mapping karena hanya akan diakses oleh WordPress dari dalam bridge network:
 
 ```bash
 docker run -d \
-  --name bridge-web \
-  --network webinar-bridge \
+  --name bridge-mysql \
+  --network wordpress-bridge \
+  -e MYSQL_DATABASE=wordpress \
+  -e MYSQL_USER=wordpress \
+  -e MYSQL_PASSWORD=wordpresspass \
+  -e MYSQL_ROOT_PASSWORD=rootpass \
+  mysql:8.0
+```
+
+Tunggu MySQL selesai inisialisasi:
+
+```bash
+until docker exec bridge-mysql mysqladmin ping -h 127.0.0.1 -uroot -prootpass --silent; do sleep 2; done
+```
+
+Jalankan WordPress pada network yang sama. Gunakan `bridge-mysql:3306` sebagai host database, karena Docker DNS akan menerjemahkan nama `bridge-mysql` ke IP container MySQL.
+
+```bash
+docker run -d \
+  --name bridge-wordpress \
+  --network wordpress-bridge \
   -p 8080:80 \
-  nginx:1.25
+  -e WORDPRESS_DB_HOST=bridge-mysql:3306 \
+  -e WORDPRESS_DB_NAME=wordpress \
+  -e WORDPRESS_DB_USER=wordpress \
+  -e WORDPRESS_DB_PASSWORD=wordpresspass \
+  wordpress:6.5-apache
 ```
 
-Arti `-p 8080:80` adalah:
+Arti `-p 8080:80` adalah `HOST_PORT:CONTAINER_PORT`: request ke port `8080` pada host akan diteruskan ke port HTTP `80` di container WordPress.
 
-| Bagian | Arti |
-|---|---|
-| `8080` | Port pada host atau mesin tempat Docker berjalan. |
-| `80` | Port aplikasi di dalam container. Nginx mendengarkan HTTP pada port ini. |
-
-Dengan demikian, request ke `http://127.0.0.1:8080` diteruskan Docker ke port `80` milik container `bridge-web`. Format umum port mapping adalah `-p HOST_PORT:CONTAINER_PORT`.
-
-Periksa network mode, IP container, dan mapping port:
+Lihat IP kedua container:
 
 ```bash
-docker inspect -f '{{.HostConfig.NetworkMode}}' bridge-web
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' bridge-wordpress
 ```
 
 ```bash
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' bridge-web
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' bridge-mysql
+```
+
+Buktikan WordPress dapat membuka koneksi ke MySQL menggunakan hostname `bridge-mysql`:
+
+```bash
+docker exec bridge-wordpress php -r '$db = @new mysqli("bridge-mysql", "wordpress", "wordpresspass", "wordpress"); if ($db->connect_error) { fwrite(STDERR, $db->connect_error . PHP_EOL); exit(1); } echo "connected\n"; $db->close();' > /tmp/answer-bridge-db-connection
 ```
 
 ```bash
-docker port bridge-web
+cat /tmp/answer-bridge-db-connection
 ```
 
-Akses aplikasi dari host melalui port mapping:
+Akses WordPress dari host melalui port mapping:
 
 ```bash
-curl -fsS http://127.0.0.1:8080 > /tmp/answer-bridge-host-access
+curl -fsSL http://127.0.0.1:8080 > /tmp/answer-bridge-wordpress-access
 ```
-
-Tampilkan bukti bahwa web server Nginx merespons:
 
 ```bash
-grep -o 'Welcome to nginx!' /tmp/answer-bridge-host-access
+grep -o 'WordPress' /tmp/answer-bridge-wordpress-access | head -n 1
 ```
 
-Topologinya:
+Topologi Bridge:
 
 ```text
-Host port 8080 -> Docker port mapping -> bridge-web:80
+Host:8080 -> bridge-wordpress:80
+bridge-wordpress -> wordpress-bridge -> bridge-mysql:3306
 ```
 
-Klik **Check** setelah `Welcome to nginx!` muncul.
+Klik **Check** setelah koneksi database menampilkan `connected` dan halaman WordPress dapat diakses.

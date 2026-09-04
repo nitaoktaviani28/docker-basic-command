@@ -1,42 +1,80 @@
-# Komunikasi Antar-Container pada Bridge
+# Host: WordPress dan MySQL
 
-Port mapping hanya dibutuhkan untuk akses dari **host** ke container. Container yang berada pada user-defined bridge yang sama dapat saling berkomunikasi langsung tanpa `-p`.
+Pada mode `host`, container berbagi network stack dengan host. Tidak ada IP container terpisah dan tidak ada port mapping Docker.
 
-Ambil IP milik `bridge-web`:
-
-```bash
-BRIDGE_WEB_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' bridge-web)
-echo "$BRIDGE_WEB_IP"
-```
-
-Buat container client sementara. Container ini melakukan request ke server menggunakan **nama container** `bridge-web`:
+Jalankan MySQL pada host network. Port MySQL `3306` langsung menjadi port host:
 
 ```bash
-docker run --rm \
-  --network webinar-bridge \
-  curlimages/curl:8.10.1 \
-  -fsS http://bridge-web > /tmp/answer-bridge-container-dns
-
-grep -o 'Welcome to nginx!' /tmp/answer-bridge-container-dns
+docker run -d \
+  --name host-mysql \
+  --network host \
+  -e MYSQL_DATABASE=wordpress \
+  -e MYSQL_USER=wordpress \
+  -e MYSQL_PASSWORD=wordpresspass \
+  -e MYSQL_ROOT_PASSWORD=rootpass \
+  mysql:8.0
 ```
 
-Uji juga dengan IP container. Tidak ada port `8080` di sini karena koneksi terjadi langsung ke port aplikasi `80` pada bridge network:
+Tunggu MySQL siap:
 
 ```bash
-docker run --rm \
-  --network webinar-bridge \
-  curlimages/curl:8.10.1 \
-  -fsS "http://${BRIDGE_WEB_IP}" > /tmp/answer-bridge-container-ip
-
-grep -o 'Welcome to nginx!' /tmp/answer-bridge-container-ip
+until docker exec host-mysql mysqladmin ping -h 127.0.0.1 -uroot -prootpass --silent; do sleep 2; done
 ```
 
-Topologinya:
+Jalankan WordPress pada host network. Database dituju melalui `127.0.0.1:3306`, karena WordPress dan MySQL sama-sama memakai network host.
+
+```bash
+docker run -d \
+  --name host-wordpress \
+  --network host \
+  -e WORDPRESS_DB_HOST=127.0.0.1:3306 \
+  -e WORDPRESS_DB_NAME=wordpress \
+  -e WORDPRESS_DB_USER=wordpress \
+  -e WORDPRESS_DB_PASSWORD=wordpresspass \
+  wordpress:6.5-apache
+```
+
+Periksa mode jaringan WordPress. Jangan gunakan `-p`; WordPress langsung memakai port `80` pada host.
+
+```bash
+docker inspect -f '{{.HostConfig.NetworkMode}}' host-wordpress
+```
+
+Ambil IP host:
+
+```bash
+HOST_IP=$(hostname -I | awk '{print $1}')
+```
+
+```bash
+echo "$HOST_IP"
+```
+
+Akses WordPress langsung melalui IP host, tanpa `:8080` atau port mapping lain:
+
+```bash
+curl -fsSL "http://${HOST_IP}" > /tmp/answer-host-wordpress-access
+```
+
+```bash
+grep -o 'WordPress' /tmp/answer-host-wordpress-access | head -n 1
+```
+
+Buktikan WordPress dapat terhubung ke MySQL melalui loopback host:
+
+```bash
+docker exec host-wordpress php -r '$db = @new mysqli("127.0.0.1", "wordpress", "wordpresspass", "wordpress"); if ($db->connect_error) { fwrite(STDERR, $db->connect_error . PHP_EOL); exit(1); } echo "connected\n"; $db->close();' > /tmp/answer-host-db-connection
+```
+
+```bash
+cat /tmp/answer-host-db-connection
+```
+
+Topologi Host:
 
 ```text
-Container client -> webinar-bridge -> bridge-web:80
+Client -> Host IP:80 -> host-wordpress
+host-wordpress -> 127.0.0.1:3306 -> host-mysql
 ```
 
-Perhatikan perbedaannya: `bridge-web` dapat dipakai sebagai hostname karena kedua container berada pada user-defined bridge yang sama.
-
-Klik **Check** setelah kedua pengujian berhasil.
+Klik **Check** setelah WordPress dapat diakses melalui IP host dan koneksi database menampilkan `connected`.

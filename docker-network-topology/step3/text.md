@@ -1,47 +1,53 @@
-# Host Network dan IP Host
+# None: WordPress Tidak Dapat Menjangkau MySQL
 
-Pada mode `host`, container tidak mendapat network namespace Docker sendiri. Aplikasi di dalam container langsung memakai network stack milik host.
+Mode `none` tidak memberi container interface jaringan selain loopback (`lo`). Sekarang kita akan menjalankan WordPress dan MySQL dengan mode ini untuk membuktikan bahwa keduanya tidak dapat berkomunikasi.
 
-Karena itu, **jangan gunakan `-p`**. Port `80` Nginx akan langsung terbuka pada port `80` host.
-
-Jalankan Nginx dengan network host:
+Jalankan MySQL dengan network `none`:
 
 ```bash
 docker run -d \
-  --name host-web \
-  --network host \
-  nginx:1.25
+  --name none-mysql \
+  --network none \
+  -e MYSQL_DATABASE=wordpress \
+  -e MYSQL_USER=wordpress \
+  -e MYSQL_PASSWORD=wordpresspass \
+  -e MYSQL_ROOT_PASSWORD=rootpass \
+  mysql:8.0
 ```
 
-Periksa network mode dan port mapping:
+Jalankan WordPress dengan network `none`. Nama database sengaja ditulis `none-mysql`, tetapi Docker DNS tidak tersedia pada mode ini.
 
 ```bash
-docker inspect -f '{{.HostConfig.NetworkMode}}' host-web
-docker port host-web
+docker run -d \
+  --name none-wordpress \
+  --network none \
+  -e WORDPRESS_DB_HOST=none-mysql:3306 \
+  -e WORDPRESS_DB_NAME=wordpress \
+  -e WORDPRESS_DB_USER=wordpress \
+  -e WORDPRESS_DB_PASSWORD=wordpresspass \
+  wordpress:6.5-apache
 ```
 
-`docker port host-web` tidak menampilkan mapping karena Docker tidak meneruskan port. Aplikasi memang langsung menggunakan port host.
-
-Ambil IP host, kemudian akses Nginx melalui IP tersebut:
+Periksa interface pada WordPress. Hasilnya hanya `lo`; tidak akan ada `eth0`.
 
 ```bash
-HOST_IP=$(hostname -I | awk '{print $1}')
-echo "$HOST_IP"
-
-curl -fsS "http://${HOST_IP}" > /tmp/answer-host-network-access
-grep -o 'Welcome to nginx!' /tmp/answer-host-network-access
+docker exec none-wordpress cat /proc/net/dev | tee /tmp/answer-none-interfaces
 ```
 
-Kamu juga dapat mengaksesnya lewat loopback host:
+Uji koneksi WordPress ke MySQL. Hasil yang diharapkan adalah `blocked` karena WordPress tidak memiliki network untuk menemukan atau menghubungi `none-mysql`.
 
 ```bash
-curl -fsS http://127.0.0.1 | grep -o 'Welcome to nginx!'
+docker exec none-wordpress php -r '$db = @new mysqli("none-mysql", "wordpress", "wordpresspass", "wordpress"); if ($db->connect_error) { echo "blocked\n"; exit(0); } echo "unexpected-success\n"; exit(1);' > /tmp/answer-none-db-connection
 ```
 
-Topologinya:
+```bash
+cat /tmp/answer-none-db-connection
+```
+
+Topologi None:
 
 ```text
-Client -> Host IP:80 -> host-web (menggunakan network host)
+none-wordpress -X-> none-mysql:3306
 ```
 
-Klik **Check** setelah halaman Nginx berhasil diakses melalui IP host.
+Klik **Check** setelah hasil koneksi adalah `blocked`.

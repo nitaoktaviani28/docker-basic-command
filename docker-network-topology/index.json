@@ -6,24 +6,19 @@
     },
     "steps": [
       {
-        "title": "Step 1 - Bridge Network dan Port Mapping",
+        "title": "Step 1 - Bridge: WordPress dan MySQL",
         "text": "step1/text.md",
         "verify": "step1/verify.sh"
       },
       {
-        "title": "Step 2 - Komunikasi Antar-Container pada Bridge",
+        "title": "Step 2 - Host: WordPress dan MySQL",
         "text": "step2/text.md",
         "verify": "step2/verify.sh"
       },
       {
-        "title": "Step 3 - Host Network dan IP Host",
+        "title": "Step 3 - None: WordPress Tidak Dapat Menjangkau MySQL",
         "text": "step3/text.md",
         "verify": "step3/verify.sh"
-      },
-      {
-        "title": "Step 4 - None Network dan Isolasi",
-        "text": "step4/text.md",
-        "verify": "step4/verify.sh"
       }
     ],
     "finish": {

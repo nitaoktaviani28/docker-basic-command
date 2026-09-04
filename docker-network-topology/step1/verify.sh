@@ -1,28 +1,33 @@
 #!/bin/bash
 set -euo pipefail
 
-if ! docker network inspect webinar-bridge >/dev/null 2>&1; then
-  echo "Network webinar-bridge belum ditemukan."
+for container in bridge-wordpress bridge-mysql; do
+  if ! docker inspect "$container" >/dev/null 2>&1; then
+    echo "Container $container belum ditemukan."
+    exit 1
+  fi
+
+  network_mode="$(docker inspect -f '{{.HostConfig.NetworkMode}}' "$container")"
+  if [ "$network_mode" != "wordpress-bridge" ]; then
+    echo "Container $container belum menggunakan network wordpress-bridge."
+    exit 1
+  fi
+done
+
+host_port="$(docker inspect -f '{{(index (index .NetworkSettings.Ports "80/tcp") 0).HostPort}}' bridge-wordpress 2>/dev/null || true)"
+if [ "$host_port" != "8080" ]; then
+  echo "bridge-wordpress belum memiliki port mapping 8080:80."
   exit 1
 fi
 
-if ! docker inspect bridge-web >/dev/null 2>&1; then
-  echo "Container bridge-web belum ditemukan."
+if [ ! -f /tmp/answer-bridge-db-connection ] || ! grep -Fxq "connected" /tmp/answer-bridge-db-connection; then
+  echo "Koneksi WordPress ke MySQL pada bridge belum berhasil."
   exit 1
 fi
 
-network_mode="$(docker inspect -f '{{.HostConfig.NetworkMode}}' bridge-web)"
-host_port="$(docker inspect -f '{{(index (index .NetworkSettings.Ports "80/tcp") 0).HostPort}}' bridge-web 2>/dev/null || true)"
-running="$(docker inspect -f '{{.State.Running}}' bridge-web)"
-
-if [ "$network_mode" != "webinar-bridge" ] || [ "$host_port" != "8080" ] || [ "$running" != "true" ]; then
-  echo "bridge-web belum berjalan pada webinar-bridge dengan mapping 8080:80."
+if [ ! -f /tmp/answer-bridge-wordpress-access ] || ! grep -q "WordPress" /tmp/answer-bridge-wordpress-access; then
+  echo "Halaman WordPress belum berhasil diakses melalui port 8080."
   exit 1
 fi
 
-if [ ! -f /tmp/answer-bridge-host-access ] || ! grep -q 'Welcome to nginx!' /tmp/answer-bridge-host-access; then
-  echo "Hasil akses bridge dari host belum tersimpan atau belum berhasil."
-  exit 1
-fi
-
-echo "Step 1 benar: bridge-web dapat diakses dari host melalui port 8080."
+echo "Step 1 benar: WordPress dan MySQL berkomunikasi pada bridge network."
