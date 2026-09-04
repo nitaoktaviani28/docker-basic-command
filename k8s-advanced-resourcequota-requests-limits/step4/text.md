@@ -32,8 +32,13 @@ spec:
               cpu: "300m"
               memory: "256Mi"
 EOF
+```
 
+```bash
 kubectl apply -f manifests/nginx-scale-test-deployment.yaml
+```
+
+```bash
 kubectl rollout status deployment/nginx-scale-test -n quota-lab
 ```
 
@@ -41,7 +46,13 @@ Coba scale menjadi 3 replica:
 
 ```bash
 kubectl scale deployment nginx-scale-test -n quota-lab --replicas=3
+```
+
+```bash
 kubectl get deployment nginx-scale-test -n quota-lab
+```
+
+```bash
 kubectl get events -n quota-lab --sort-by=.lastTimestamp | grep -i quota
 ```
 
@@ -51,6 +62,9 @@ Simpan pesan error quota:
 
 ```bash
 kubectl get events -n quota-lab --sort-by=.lastTimestamp | grep -i quota > /tmp/answer-quota-error || true
+```
+
+```bash
 cat /tmp/answer-quota-error
 ```
 

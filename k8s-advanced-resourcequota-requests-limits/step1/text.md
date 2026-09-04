@@ -4,14 +4,18 @@ Pada tahap ini, buat Namespace khusus bernama `quota-lab`, lalu terapkan Resourc
 
 ```bash
 mkdir -p manifests
+```
 
+```bash
 cat <<EOF > manifests/namespace-quota-lab.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
   name: quota-lab
 EOF
+```
 
+```bash
 kubectl apply -f manifests/namespace-quota-lab.yaml
 ```
 
@@ -32,9 +36,17 @@ spec:
     limits.cpu: "1000m"
     limits.memory: "1Gi"
 EOF
+```
 
+```bash
 kubectl apply -f manifests/resource-quota.yaml
+```
+
+```bash
 kubectl get resourcequota -n quota-lab
+```
+
+```bash
 kubectl describe resourcequota quota-lab-limit -n quota-lab
 ```
 

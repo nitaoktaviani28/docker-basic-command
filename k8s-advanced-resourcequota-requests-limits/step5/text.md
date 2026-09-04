@@ -4,7 +4,13 @@ Sebelum membuat demo OOM, hapus `nginx-scale-test` agar quota kembali cukup:
 
 ```bash
 kubectl delete deployment nginx-scale-test -n quota-lab
+```
+
+```bash
 kubectl wait --for=delete pod -l app=nginx-scale-test -n quota-lab --timeout=90s
+```
+
+```bash
 kubectl describe resourcequota quota-lab-limit -n quota-lab
 ```
 
@@ -39,8 +45,13 @@ spec:
           cpu: "100m"
           memory: "64Mi"
 EOF
+```
 
+```bash
 kubectl apply -f manifests/oom-demo-pod.yaml
+```
+
+```bash
 kubectl get pod oom-demo -n quota-lab -w
 ```
 
@@ -48,7 +59,13 @@ Setelah reason `OOMKilled` muncul, tekan `CTRL+C`, lalu ambil status container t
 
 ```bash
 kubectl get pod oom-demo -n quota-lab -o jsonpath='{.status.containerStatuses[0].lastState.terminated.reason}'
+```
+
+```bash
 echo
+```
+
+```bash
 kubectl describe pod oom-demo -n quota-lab
 ```
 
@@ -56,6 +73,9 @@ Simpan hasilnya untuk verifikasi. Jika masih kosong, tunggu beberapa detik dan u
 
 ```bash
 kubectl get pod oom-demo -n quota-lab -o jsonpath='{.status.containerStatuses[0].lastState.terminated.reason}' > /tmp/answer-oom-reason
+```
+
+```bash
 cat /tmp/answer-oom-reason
 ```
 

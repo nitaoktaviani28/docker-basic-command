@@ -34,9 +34,17 @@ spec:
               cpu: "200m"
               memory: "128Mi"
 EOF
+```
 
+```bash
 kubectl apply -f manifests/nginx-limited-deployment.yaml
+```
+
+```bash
 kubectl rollout status deployment/nginx-limited -n quota-lab
+```
+
+```bash
 kubectl get pods -n quota-lab -l app=nginx-limited
 ```
 

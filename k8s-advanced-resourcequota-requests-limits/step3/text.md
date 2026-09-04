@@ -26,6 +26,9 @@ Simpan hasil pemeriksaan quota:
 
 ```bash
 kubectl describe resourcequota quota-lab-limit -n quota-lab > /tmp/answer-resourcequota-used
+```
+
+```bash
 cat /tmp/answer-resourcequota-used
 ```
 
