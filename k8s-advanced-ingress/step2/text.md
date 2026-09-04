@@ -32,9 +32,17 @@ spec:
           ports:
             - containerPort: 5678
 EOF
+```
 
+```bash
 kubectl apply -f manifests/web-blue-deployment.yaml
+```
+
+```bash
 kubectl get deployment web-blue -n ingress-lab
+```
+
+```bash
 kubectl get pods -n ingress-lab -l app=web-blue
 ```
 
@@ -58,9 +66,17 @@ spec:
       port: 80
       targetPort: 5678
 EOF
+```
 
+```bash
 kubectl apply -f manifests/web-blue-service.yaml
+```
+
+```bash
 kubectl get svc svc-web-blue -n ingress-lab
+```
+
+```bash
 kubectl get endpoints svc-web-blue -n ingress-lab
 ```
 

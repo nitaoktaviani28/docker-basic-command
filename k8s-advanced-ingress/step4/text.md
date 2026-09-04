@@ -45,7 +45,13 @@ Terapkan dan lihat detail rule-nya:
 
 ```bash
 kubectl apply -f manifests/app-ingress.yaml
+```
+
+```bash
 kubectl get ingress app-ingress -n ingress-lab
+```
+
+```bash
 kubectl describe ingress app-ingress -n ingress-lab
 ```
 

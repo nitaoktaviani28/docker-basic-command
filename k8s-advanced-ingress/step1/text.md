@@ -21,7 +21,13 @@ Periksa Pod, Service, dan IngressClass controller:
 
 ```bash
 kubectl get pods -n ingress-nginx
+```
+
+```bash
 kubectl get svc ingress-nginx-controller -n ingress-nginx
+```
+
+```bash
 kubectl get ingressclass
 ```
 
@@ -31,15 +37,22 @@ Buat Namespace untuk backend aplikasi:
 
 ```bash
 mkdir -p manifests
+```
 
+```bash
 cat <<EOF > manifests/namespace-ingress-lab.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
   name: ingress-lab
 EOF
+```
 
+```bash
 kubectl apply -f manifests/namespace-ingress-lab.yaml
+```
+
+```bash
 kubectl get namespace ingress-lab
 ```
 
