@@ -6,6 +6,9 @@ Lihat image yang digunakan saat ini:
 
 ```bash
 kubectl get deployment nginx-rollout -n rollout-lab -o jsonpath='{.spec.template.spec.containers[0].image}'
+```
+
+```bash
 echo
 ```
 
@@ -19,6 +22,9 @@ Tunggu rollout selesai dan periksa riwayat revisinya:
 
 ```bash
 kubectl rollout status deployment/nginx-rollout -n rollout-lab
+```
+
+```bash
 kubectl rollout history deployment/nginx-rollout -n rollout-lab
 ```
 
@@ -34,7 +40,13 @@ Pastikan image sudah berubah dan semua replica kembali siap:
 
 ```bash
 kubectl get deployment nginx-rollout -n rollout-lab
+```
+
+```bash
 kubectl get deployment nginx-rollout -n rollout-lab -o jsonpath='{.spec.template.spec.containers[0].image}'
+```
+
+```bash
 echo
 ```
 

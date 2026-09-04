@@ -12,8 +12,17 @@ Periksa Deployment dan Pod yang dibuat:
 
 ```bash
 kubectl get deployment nginx-rollout -n rollout-lab
+```
+
+```bash
 kubectl get pods -n rollout-lab -l app=nginx-rollout
+```
+
+```bash
 kubectl get deployment nginx-rollout -n rollout-lab -o jsonpath='{.spec.replicas}'
+```
+
+```bash
 echo
 ```
 
@@ -23,6 +32,9 @@ Untuk melihat efek scale down, coba kurangi replica menjadi 2:
 
 ```bash
 kubectl scale deployment nginx-rollout -n rollout-lab --replicas=2
+```
+
+```bash
 kubectl get pods -n rollout-lab -l app=nginx-rollout
 ```
 
@@ -30,6 +42,9 @@ Kemudian scale kembali ke 4 replica untuk tahap berikutnya:
 
 ```bash
 kubectl scale deployment nginx-rollout -n rollout-lab --replicas=4
+```
+
+```bash
 kubectl rollout status deployment/nginx-rollout -n rollout-lab
 ```
 

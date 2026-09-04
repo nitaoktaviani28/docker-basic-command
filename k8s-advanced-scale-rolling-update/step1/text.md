@@ -6,14 +6,18 @@ Buat folder manifest dan Namespace:
 
 ```bash
 mkdir -p manifests
+```
 
+```bash
 cat <<EOF > manifests/namespace-rollout-lab.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
   name: rollout-lab
 EOF
+```
 
+```bash
 kubectl apply -f manifests/namespace-rollout-lab.yaml
 ```
 
@@ -52,8 +56,17 @@ Terapkan manifest dan tunggu dua Pod siap:
 
 ```bash
 kubectl apply -f manifests/nginx-rollout.yaml
+```
+
+```bash
 kubectl rollout status deployment/nginx-rollout -n rollout-lab
+```
+
+```bash
 kubectl get deployment nginx-rollout -n rollout-lab
+```
+
+```bash
 kubectl get pods -n rollout-lab -l app=nginx-rollout
 ```
 

@@ -24,7 +24,13 @@ Verifikasi image dan jumlah replica:
 
 ```bash
 kubectl get deployment nginx-rollout -n rollout-lab
+```
+
+```bash
 kubectl get deployment nginx-rollout -n rollout-lab -o jsonpath='{.spec.template.spec.containers[0].image}'
+```
+
+```bash
 echo
 ```
 
