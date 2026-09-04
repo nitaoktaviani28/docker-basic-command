@@ -8,6 +8,11 @@ Buat network bridge:
 
 ```bash
 docker network create --driver bridge webinar-bridge
+```
+
+Lihat daftar network Docker untuk memastikan network berhasil dibuat:
+
+```bash
 docker network ls
 ```
 
@@ -21,11 +26,26 @@ docker run -d \
   nginx:1.25
 ```
 
+Arti `-p 8080:80` adalah:
+
+| Bagian | Arti |
+|---|---|
+| `8080` | Port pada host atau mesin tempat Docker berjalan. |
+| `80` | Port aplikasi di dalam container. Nginx mendengarkan HTTP pada port ini. |
+
+Dengan demikian, request ke `http://127.0.0.1:8080` diteruskan Docker ke port `80` milik container `bridge-web`. Format umum port mapping adalah `-p HOST_PORT:CONTAINER_PORT`.
+
 Periksa network mode, IP container, dan mapping port:
 
 ```bash
 docker inspect -f '{{.HostConfig.NetworkMode}}' bridge-web
+```
+
+```bash
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' bridge-web
+```
+
+```bash
 docker port bridge-web
 ```
 
@@ -33,6 +53,11 @@ Akses aplikasi dari host melalui port mapping:
 
 ```bash
 curl -fsS http://127.0.0.1:8080 > /tmp/answer-bridge-host-access
+```
+
+Tampilkan bukti bahwa web server Nginx merespons:
+
+```bash
 grep -o 'Welcome to nginx!' /tmp/answer-bridge-host-access
 ```
 
