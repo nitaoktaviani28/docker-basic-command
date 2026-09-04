@@ -49,7 +49,13 @@ Periksa kedua Namespace:
 
 ```bash
 kubectl get ns dev prod
+```
+
+```bash
 kubectl describe namespace dev
+```
+
+```bash
 kubectl describe namespace prod
 ```
 

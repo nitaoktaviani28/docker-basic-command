@@ -44,7 +44,13 @@ Periksa kedua Deployment dengan nama yang sama tersebut:
 
 ```bash
 kubectl get deployment nginx-app -n dev
+```
+
+```bash
 kubectl get deployment nginx-app -n prod
+```
+
+```bash
 kubectl get deploy -A | grep nginx-app
 ```
 
@@ -52,6 +58,9 @@ Kamu juga dapat membandingkan image yang dipakai:
 
 ```bash
 kubectl get deployment nginx-app -n dev -o jsonpath='{.spec.template.spec.containers[0].image}'
+```
+
+```bash
 kubectl get deployment nginx-app -n prod -o jsonpath='{.spec.template.spec.containers[0].image}'
 ```
 

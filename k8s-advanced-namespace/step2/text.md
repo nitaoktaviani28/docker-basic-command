@@ -38,6 +38,9 @@ Terapkan manifest dan cek statusnya:
 
 ```bash
 kubectl apply -f manifests/nginx-app-dev.yaml
+```
+
+```bash
 kubectl get deployment nginx-app -n dev
 ```
 
@@ -53,6 +56,9 @@ Command tersebut akan gagal karena Deployment dengan nama itu sudah ada. Format 
 
 ```bash
 kubectl create deployment nginx-app --image=nginx:1.26 -n dev 2> /tmp/answer-same-namespace-error || true
+```
+
+```bash
 cat /tmp/answer-same-namespace-error
 ```
 

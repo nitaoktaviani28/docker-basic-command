@@ -10,6 +10,12 @@ Jika ingin membersihkan resource lab, jalankan:
 
 ```bash
 kubectl delete deployment nginx-app -n dev
+```
+
+```bash
 kubectl delete deployment nginx-app -n prod
+```
+
+```bash
 kubectl delete namespace dev prod
 ```
