@@ -10,6 +10,12 @@ Cleanup resource lab:
 
 ```bash
 kubectl delete deployment nginx-env-demo
+```
+
+```bash
 kubectl delete configmap app-config-command app-config-env app-config-yaml
+```
+
+```bash
 kubectl delete secret app-secret-command app-secret-env app-secret-yaml
 ```

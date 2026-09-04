@@ -23,7 +23,13 @@ Buat ConfigMap dari file tersebut:
 
 ```bash
 kubectl create configmap app-config-env --from-env-file=files/app-config.env
+```
+
+```bash
 kubectl get configmap app-config-env
+```
+
+```bash
 kubectl describe configmap app-config-env
 ```
 
@@ -41,8 +47,17 @@ Buat Secret dari file tersebut, lalu periksa API key-nya:
 
 ```bash
 kubectl create secret generic app-secret-env --from-env-file=files/app-secret.env
+```
+
+```bash
 kubectl get secret app-secret-env
+```
+
+```bash
 kubectl get secret app-secret-env -o jsonpath='{.data.API_KEY}' | base64 -d
+```
+
+```bash
 echo
 ```
 

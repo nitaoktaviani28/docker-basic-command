@@ -28,7 +28,13 @@ Terapkan dan periksa ConfigMap:
 
 ```bash
 kubectl apply -f manifests/app-config.yaml
+```
+
+```bash
 kubectl get configmap app-config-yaml
+```
+
+```bash
 kubectl describe configmap app-config-yaml
 ```
 
@@ -52,8 +58,17 @@ Terapkan Secret dan decode salah satu nilainya:
 
 ```bash
 kubectl apply -f manifests/app-secret.yaml
+```
+
+```bash
 kubectl get secret app-secret-yaml
+```
+
+```bash
 kubectl get secret app-secret-yaml -o jsonpath='{.data.DB_PASSWORD}' | base64 -d
+```
+
+```bash
 echo
 ```
 

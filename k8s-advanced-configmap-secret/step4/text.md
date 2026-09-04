@@ -39,7 +39,13 @@ Terapkan Deployment dan tunggu hingga Pod berstatus `Running`:
 
 ```bash
 kubectl apply -f manifests/nginx-env-deployment.yaml
+```
+
+```bash
 kubectl get deployment nginx-env-demo
+```
+
+```bash
 kubectl get pods -l app=nginx-env-demo
 ```
 
@@ -47,6 +53,9 @@ Ambil nama Pod, lalu lihat environment variable di dalam container:
 
 ```bash
 POD_NAME=$(kubectl get pods -l app=nginx-env-demo -o jsonpath='{.items[0].metadata.name}')
+```
+
+```bash
 kubectl exec "$POD_NAME" -- env | grep -E 'APP_NAME|APP_ENV|APP_PORT|LOG_LEVEL|DB_USERNAME|DB_PASSWORD|API_KEY'
 ```
 
@@ -66,6 +75,9 @@ Simpan hasilnya untuk verifikasi:
 
 ```bash
 kubectl exec "$POD_NAME" -- env | grep -E 'APP_NAME|APP_ENV|APP_PORT|LOG_LEVEL|DB_USERNAME|DB_PASSWORD|API_KEY' > /tmp/answer-env-result
+```
+
+```bash
 cat /tmp/answer-env-result
 ```
 

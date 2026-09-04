@@ -15,7 +15,13 @@ Periksa resource dan isi ConfigMap:
 
 ```bash
 kubectl get configmap app-config-command
+```
+
+```bash
 kubectl describe configmap app-config-command
+```
+
+```bash
 kubectl get configmap app-config-command -o yaml
 ```
 
@@ -31,7 +37,13 @@ Lihat Secret yang dibuat:
 
 ```bash
 kubectl get secret app-secret-command
+```
+
+```bash
 kubectl describe secret app-secret-command
+```
+
+```bash
 kubectl get secret app-secret-command -o yaml
 ```
 
@@ -39,6 +51,9 @@ Nilai Secret pada output YAML terlihat dalam Base64. Decode password untuk melih
 
 ```bash
 kubectl get secret app-secret-command -o jsonpath='{.data.DB_PASSWORD}' | base64 -d
+```
+
+```bash
 echo
 ```
 
