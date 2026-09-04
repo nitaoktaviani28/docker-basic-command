@@ -1,0 +1,15 @@
+{
+  "title": "Docker Compose - Flask dan MySQL",
+  "details": {
+    "intro": { "text": "intro.md" },
+    "steps": [
+      { "title": "Step 1 - Membuat Aplikasi Flask dan Dockerfile", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Step 2 - Menulis dan Menjalankan Docker Compose", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Step 3 - Menyimpan Nama ke MySQL", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Step 4 - Memeriksa Bridge Network dan Volume", "text": "step4/text.md", "verify": "step4/verify.sh" },
+      { "title": "Step 5 - Membuktikan Data Tetap Ada", "text": "step5/text.md", "verify": "step5/verify.sh" }
+    ],
+    "finish": { "text": "finish.md" }
+  },
+  "backend": { "imageid": "ubuntu" }
+}
